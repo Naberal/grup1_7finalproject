@@ -22,6 +22,9 @@ public class Worker extends UUIdModel {
     @ManyToMany//todo
     @JoinColumn(table = "post", name = "post", referencedColumnName = "post")
     private long department;
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
 //    private Time time;//todo
 
     public String getFirstName() {
@@ -81,6 +84,14 @@ public class Worker extends UUIdModel {
 
     public void setConfirmPass(String confirmPass) {
         this.confirmPass = confirmPass;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override

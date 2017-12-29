@@ -20,7 +20,9 @@ CREATE TABLE IF NOT EXISTS workers (
   department INT(2)            NOT NULL,
   FOREIGN KEY (department) REFERENCES department (id),
   password   INT(100)          NOT NULL,
-  email      VARCHAR(100)      NOT NULL UNIQUE
+  email      VARCHAR(100)      NOT NULL UNIQUE,
+  role       INT(1)            NOT NULL DEFAULT 3,
+  FOREIGN KEY (role) REFERENCES role (id)
 );
 CREATE TABLE IF NOT EXISTS event_type (
   id   INT(2) AUTO_INCREMENT PRIMARY KEY,

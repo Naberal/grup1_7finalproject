@@ -12,9 +12,9 @@ public class Event extends UUIdModel {
     private Date date;
     @Column(name = "time")
     private Time time;
-    @ManyToMany
-    @JoinColumn(table = "event_type", referencedColumnName = "name")//todo
-    private long type;
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    private EventType type;
 
     public String getName() {
         return name;
@@ -25,7 +25,7 @@ public class Event extends UUIdModel {
     }
 
 
-    public java.sql.Date getDate() {
+    public Date getDate() {
         return date;
     }
 
@@ -38,16 +38,16 @@ public class Event extends UUIdModel {
         return time;
     }
 
-    public void setTime(java.sql.Time time) {
+    public void setTime(Time time) {
         this.time = time;
     }
 
 
-    public long getType() {
+    public EventType getType() {
         return type;
     }
 
-    public void setType(long type) {
+    public void setType(EventType type) {
         this.type = type;
     }
 
