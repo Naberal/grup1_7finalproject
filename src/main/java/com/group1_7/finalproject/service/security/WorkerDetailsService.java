@@ -22,7 +22,7 @@ public class WorkerDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Worker worker = workerRepository.findByEmail(email);
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(worker.getRole().name());
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
         grantedAuthorities.add(authority);
         return new User(email, worker.getPass(), grantedAuthorities);
     }

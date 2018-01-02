@@ -1,10 +1,15 @@
 package com.group1_7.finalproject.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import javax.persistence.*;
 import java.sql.Time;
 
 @Entity
 @Table(name = "workers")
+@JsonSerialize()//todo
+@JsonDeserialize()//todo
 public class Worker extends UUIdModel {
     @Column(name = "first_name")
     private String firstName;
@@ -16,16 +21,20 @@ public class Worker extends UUIdModel {
     private String pass;
     @Transient
     private String confirmPass;
-    @ManyToMany//todo
-    @JoinColumn(table = "post", name = "post", referencedColumnName = "post")
-    private Long post;
-    @ManyToMany//todo
-    @JoinColumn(table = "post", name = "post", referencedColumnName = "post")
-    private long department;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id")//todo
+    private Post post;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id")//todo
+    private Department department;
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Role role;
 //    private Time time;//todo
+
+
+    public Worker() {
+    }
 
     public String getFirstName() {
         return firstName;
@@ -45,20 +54,20 @@ public class Worker extends UUIdModel {
     }
 
 
-    public Long getPost() {
+    public Post getPost() {
         return post;
     }
 
-    public void setPost(Long post) {
+    public void setPost(Post post) {
         this.post = post;
     }
 
 
-    public long getDepartment() {
+    public Department getDepartment() {
         return department;
     }
 
-    public void setDepartment(long department) {
+    public void setDepartment(Department department) {
         this.department = department;
     }
 

@@ -3,15 +3,18 @@ package com.group1_7.finalproject.service;
 import com.group1_7.finalproject.model.Event;
 import com.group1_7.finalproject.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
+@PreAuthorize("hasAnyRole('ADMIN,MODER')")
 public class EventServise {
     @Autowired
     EventRepository eventRepository;
+
     public void save(Event event) {
         eventRepository.save(event);
     }
