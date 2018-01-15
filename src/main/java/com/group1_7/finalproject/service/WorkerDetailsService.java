@@ -1,4 +1,4 @@
-package com.group1_7.finalproject.service.security;
+package com.group1_7.finalproject.service;
 
 import com.group1_7.finalproject.model.Worker;
 import com.group1_7.finalproject.repository.WorkerRepository;
@@ -9,10 +9,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
-
+@Service
 public class WorkerDetailsService implements UserDetailsService {
 
     @Autowired

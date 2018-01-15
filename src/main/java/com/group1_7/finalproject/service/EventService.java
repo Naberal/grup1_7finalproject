@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Service
 @PreAuthorize("hasAnyRole('ADMIN,MODER')")
-public class EventServise {
+public class EventService {
     @Autowired
     EventRepository eventRepository;
 

@@ -8,8 +8,8 @@ import java.sql.Time;
 
 @Entity
 @Table(name = "workers")
-@JsonSerialize()//todo
-@JsonDeserialize()//todo
+//@JsonSerialize()//todo
+//@JsonDeserialize()//todo
 public class Worker extends UUIdModel {
     @Column(name = "first_name")
     private String firstName;
@@ -21,11 +21,9 @@ public class Worker extends UUIdModel {
     private String pass;
     @Transient
     private String confirmPass;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")//todo
+    @ManyToOne//todo
     private Post post;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")//todo
+    @ManyToOne//todo
     private Department department;
     @Column(name = "role")
     @Enumerated(EnumType.STRING)

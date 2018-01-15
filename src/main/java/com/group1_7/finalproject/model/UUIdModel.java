@@ -2,6 +2,7 @@ package com.group1_7.finalproject.model;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -12,6 +13,7 @@ public class UUIdModel {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "uuid2")
+    @Column(name = "id")
     private UUID id;
 
     public UUIdModel() {
