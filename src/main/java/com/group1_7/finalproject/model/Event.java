@@ -2,6 +2,8 @@ package com.group1_7.finalproject.model;
 
 import javax.persistence.*;
 import java.sql.*;
+import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name = "event")
@@ -11,10 +13,14 @@ public class Event extends UUIdModel {
     @Column(name = "date")
     private Date date;
     @Column(name = "time")
-    private Time time;
+    private LocalTime time;
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private EventType type;
+    @ManyToMany
+    @JoinTable(name = "event_participants", joinColumns = @JoinColumn(name = "event"),
+            inverseJoinColumns = @JoinColumn(name = "workers"))
+    private List<Worker> workers;
 
     public String getName() {
         return name;
@@ -29,16 +35,16 @@ public class Event extends UUIdModel {
         return date;
     }
 
-    public void setDate(java.sql.Date date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
 
-    public java.sql.Time getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 
@@ -51,12 +57,21 @@ public class Event extends UUIdModel {
         this.type = type;
     }
 
+    public List<Worker> getWorkers() {
+        return workers;
+    }
+
+    public void setWorkers(List<Worker> workers) {
+        this.workers = workers;
+    }
+
     @Override
     public String toString() {
         return "name='" + name + '\'' +
                 ", date=" + date +
                 ", time=" + time +
                 ", type=" + type +
+                ", workers=" + workers +
                 '}';
     }
 }

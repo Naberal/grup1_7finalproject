@@ -1,15 +1,10 @@
 package com.group1_7.finalproject.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import javax.persistence.*;
-import java.sql.Time;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "workers")
-//@JsonSerialize()//todo
-//@JsonDeserialize()//todo
 public class Worker extends UUIdModel {
     @Column(name = "first_name")
     private String firstName;
@@ -21,14 +16,17 @@ public class Worker extends UUIdModel {
     private String pass;
     @Transient
     private String confirmPass;
-    @ManyToOne//todo
+    @ManyToOne
     private Post post;
-    @ManyToOne//todo
+    @ManyToOne
     private Department department;
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Role role;
-//    private Time time;//todo
+    @Enumerated(EnumType.STRING)
+    private WorkerStatus status;
+
+    private LocalTime time;
 
 
     public Worker() {
@@ -42,7 +40,6 @@ public class Worker extends UUIdModel {
         this.firstName = firstName;
     }
 
-
     public String getLastName() {
         return lastName;
     }
@@ -51,7 +48,6 @@ public class Worker extends UUIdModel {
         this.lastName = lastName;
     }
 
-
     public Post getPost() {
         return post;
     }
@@ -59,7 +55,6 @@ public class Worker extends UUIdModel {
     public void setPost(Post post) {
         this.post = post;
     }
-
 
     public Department getDepartment() {
         return department;
@@ -101,11 +96,30 @@ public class Worker extends UUIdModel {
         this.role = role;
     }
 
+    public WorkerStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(WorkerStatus status) {
+        this.status = status;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
     @Override
     public String toString() {
         return "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
                 ", post=" + post +
-                ", department=" + department;
+                ", department=" + department +
+                ", time=" + time +
+                '}';
     }
 }

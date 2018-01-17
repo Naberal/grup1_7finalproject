@@ -7,25 +7,25 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value ="/worker")
+@RequestMapping(value = "/worker")
 public class WorkerController {
     @Autowired
     private WorkersService workersService;
 
-    @GetMapping(value ="/allWorkers")
-    public LinkedList<Worker> allWorkers() {
-        LinkedList<Worker> workers = (LinkedList) workersService.getAll();
-        return workers;
+    @GetMapping(value = "/allWorkers", produces = "application/json")
+    public ResponseEntity<List<Worker>> allWorkers() {
+        List<Worker> workers =  workersService.getAll();
+        return new ResponseEntity<>(workers, HttpStatus.OK);
     }
 
-    @GetMapping(value ="/{id}")
-    public Worker findWorker(@PathVariable UUID id) {
+    @GetMapping(value = "/{id}", produces = "application/json")
+    public ResponseEntity<Worker> findWorker(@PathVariable UUID id) {
         Worker worker = workersService.getById(id);
-        return worker;
+        return new ResponseEntity<>(worker, HttpStatus.OK);
     }
 
     @PostMapping("/saveWorker")
@@ -34,7 +34,7 @@ public class WorkerController {
         return new ResponseEntity("Worker saved successfully", HttpStatus.OK);
     }
 
-    @PostMapping(value ="/{id}/updateWorker")
+    @PostMapping(value = "/{id}/updateWorker", produces = "application/json")
     public ResponseEntity updateWorker(@RequestBody Worker worker, @PathVariable UUID id) {
         Worker updateWorker = workersService.getById(id);
         updateWorker.setFirstName(worker.getFirstName());
@@ -48,7 +48,7 @@ public class WorkerController {
         return new ResponseEntity("Worker update successfully", HttpStatus.OK);
     }
 
-    @DeleteMapping(value ="/{id}/deleteWorker")
+    @DeleteMapping(value = "/{id}/deleteWorker", produces = "application/json")
     public ResponseEntity deleteWorker(@PathVariable UUID id) {
         workersService.delete(id);
         return new ResponseEntity("Worker deleted successfully", HttpStatus.OK);

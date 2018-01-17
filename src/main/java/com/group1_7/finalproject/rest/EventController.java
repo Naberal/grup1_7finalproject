@@ -7,34 +7,34 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value ="/event")
+@RequestMapping(value = "/event")
 public class EventController {
     @Autowired
     private EventService eventService;
 
-    @GetMapping(value ="/allEvents")
-    public LinkedList<Event> events() {
-        LinkedList<Event> events = (LinkedList) eventService.getAll();
-        return events;
+    @GetMapping(value = "/allEvents", produces = "application/json")
+    public ResponseEntity<List<Event>> events() {
+        List<Event> events = eventService.getAll();
+        return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}")
-    public Event findEvent(@PathVariable UUID id) {
+    @GetMapping(value = "/{id}", produces = "application/json")
+    public ResponseEntity<Event> findEvent(@PathVariable UUID id) {
         Event event = eventService.getById(id);
-        return event;
+        return new ResponseEntity<>(event, HttpStatus.OK);
     }
 
-    @PostMapping(value ="/createEvent")
+    @PostMapping(value = "/createEvent", produces = "application/json")
     public ResponseEntity saveEvent(@RequestBody Event event) {
         eventService.save(event);
         return new ResponseEntity("Event saved successfully", HttpStatus.OK);
     }
 
-    @PostMapping("/{id}/updateEvent")
+    @PostMapping(value = "/{id}/updateEvent", produces = "application/json")
     public ResponseEntity updateEvent(@RequestBody Event event, @PathVariable UUID id) {
         Event updateEvent = eventService.getById(id);
         updateEvent.setName(event.getName());
@@ -45,7 +45,7 @@ public class EventController {
         return new ResponseEntity("Event update successfully", HttpStatus.OK);
     }
 
-    @DeleteMapping(value ="/{id}/deleteEvent")
+    @DeleteMapping(value = "/{id}/deleteEvent", produces = "application/json")
     public ResponseEntity deleteEvent(@PathVariable UUID id) {
         eventService.delete(id);
         return new ResponseEntity("Event deleted successfully", HttpStatus.OK);
