@@ -1,7 +1,7 @@
 package com.group1_7.finalproject.model;
 
 import javax.persistence.*;
-import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class Event extends UUIdModel {
     @Column(name = "name")
     private String name;
     @Column(name = "date")
-    private Date date;
+    private LocalDate date;
     @Column(name = "time")
     private LocalTime time;
     @Column(name = "type")
@@ -31,11 +31,11 @@ public class Event extends UUIdModel {
     }
 
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

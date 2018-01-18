@@ -2,6 +2,7 @@ package com.group1_7.finalproject.model;
 
 import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name = "workers")
@@ -25,9 +26,8 @@ public class Worker extends UUIdModel {
     private Role role;
     @Enumerated(EnumType.STRING)
     private WorkerStatus status;
-
-    private LocalTime time;
-
+    @OneToMany(mappedBy = "salary")
+    private List<Salary> salary;
 
     public Worker() {
     }
@@ -104,12 +104,13 @@ public class Worker extends UUIdModel {
         this.status = status;
     }
 
-    public LocalTime getTime() {
-        return time;
+    public List<Salary> getSalary() {
+        return salary;
     }
 
-    public void setTime(LocalTime time) {
-        this.time = time;
+    public void setSalary(Salary salary) {
+        salary.setWorkerId(getId());
+        this.salary.add(salary);
     }
 
     @Override
@@ -118,8 +119,6 @@ public class Worker extends UUIdModel {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", post=" + post +
-                ", department=" + department +
-                ", time=" + time +
-                '}';
+                ", department=" + department;
     }
 }
