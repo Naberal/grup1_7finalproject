@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -61,6 +62,21 @@ public class Salary {
 
     public void setSalary(BigDecimal salary) {
         this.salary = salary;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Salary salary = (Salary) o;
+        return Objects.equals(workerId, salary.workerId) &&
+                Objects.equals(date, salary.date);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(workerId, date);
     }
 
     @Override
