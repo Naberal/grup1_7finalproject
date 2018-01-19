@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 
 @Component
@@ -23,15 +24,14 @@ public class CountSalary {
     private Salary salary;
 
     public void countSalaryAndTime() {
-        int month = LocalDate.now().getMonthValue() - 1;
-        if (month == 0) month = 12;
         BigDecimal salary = null;
-        events = eventRepository.findAllByDate_Month(month);
+        events = eventRepository.findAllByDateAfter(Date.valueOf(LocalDate.now().minusMonths(1)));
         for (Event event : events) {
             for (Worker worker : event.getWorkers()) {
                 salary = BigDecimal.valueOf(event.getTime().getHour() * worker.getPost().getHourlyRate()
                         * event.getType().getCoefficient());
-                if (salaryRepository.findByDate_MonthaAndAndWorkerId(month, worker.getId()).equals(this.salary)) {
+                if (salaryRepository.findByDateAfterAndWorkerId(Date.valueOf(LocalDate.now().minusMonths(1)),
+                        worker.getId()).equals(this.salary)) {
                     this.salary.setSalary(this.salary.getSalary().add(salary));
                     this.salary.setTime(this.salary.getTime().plusHours(event.getTime().getHour()));
                 } else {
